@@ -27,3 +27,6 @@ def index():
         return render_template('index.html', actors=query(title))
     else:
         return render_template('index.html', actors=[])
+
+if __name__ == '__main__':
+   app.run()
