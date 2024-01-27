@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from string import Template
 from SPARQLWrapper import SPARQLWrapper, JSON
 sparql = SPARQLWrapper("http://localhost:3030/TMDB/sparql")
@@ -27,6 +27,10 @@ def index():
         return render_template('index.html', actors=query(title))
     else:
         return render_template('index.html', actors=[])
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
    app.run()
