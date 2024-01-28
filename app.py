@@ -44,7 +44,29 @@ def index():
     else:
         return render_template('index.html', actors=[])
 
+@app.route("/actor", methods=('GET', 'POST'))
+def actor():
+    if request.method == 'POST':
+        title = request.form['title']
+        return render_template('index2.html', actors=query(actor))
+    else:
+        return render_template('index2.html', actors=[])
 
+@app.route("/genre", methods=('GET', 'POST'))
+def genre():
+    if request.method == 'POST':
+        title = request.form['title']
+        return render_template('index3.html', actors=query(genre))
+    else:
+        return render_template('index3.html', actors=[])
+
+@app.route("/description", methods=('GET', 'POST'))
+def description():
+    if request.method == 'POST':
+        title = request.form['title']
+        return render_template('index4.html', descript=query(description))
+    else:
+        return render_template('index4.html', descript=[])
 @app.route('/static/<path:filename>')
 def serve_static(filename):
     return send_from_directory('static', filename)

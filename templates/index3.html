@@ -3,9 +3,9 @@
 <h1>{% block title %} MovieMagnet {% endblock %}</h1>
 <form method="post">
 <div class="form-group">
-<label>Movie title:</label>
-<input type="text" name="title" placeholder="Enter movie title..."
-class="form-control" value="{{ request.form['title'] }}"/>
+<label>Get Movie to genre:</label>
+<input type="text" name="genre" placeholder="Enter genre ..."
+class="form-control" value="{{ request.form['genre'] }}"/>
 </div>
 <div class="form-group">
 <button class="btn btn-primary">Show actors</button>
