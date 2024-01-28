@@ -2,6 +2,7 @@ import subprocess
 from flask import Flask, render_template, request, send_from_directory
 from string import Template
 from SPARQLWrapper import SPARQLWrapper, JSON
+import requests
 
 fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'
 ttl_file_path = 'TMDB.ttl'
@@ -11,12 +12,24 @@ def start_fuseki_server():
     subprocess.Popen([fuseki_path, '--update', '--mem', '/TMDB'])
 
     import time
-    time.sleep(10)
+    time.sleep(5)
 
-    subprocess.Popen([fuseki_path, '--service', '/TMDB', '--update', f'--file={ttl_file_path}'])
+    upload_ttl_to_fuseki()
 
 
-sparql = SPARQLWrapper("http://localhost:3030/TMDB/sparql")
+def upload_ttl_to_fuseki():
+    data = open(ttl_file_path).read()
+    headers = {'Content-Type': 'text/turtle;charset=utf-8'}
+    fuseki_url = 'http://localhost:3030/TMDB/data?default'
+    response = requests.post(fuseki_url, data=data, headers=headers)
+
+    if response.status_code == 200:
+        print("TMDB.ttl file uploaded successfully to Fuseki server.")
+    else:
+        print(f"Failed to upload TMDB.ttl. Status code: {response.status_code}")
+
+
+sparql = SPARQLWrapper("http://localhost:3030/TMDB/query")  # check http://localhost:3030 for SPARQL Endpoint before run
 sparql.setReturnFormat(JSON)
 actor_query = """
 PREFIX : <https://www.themoviedb.org/kaggle-export/>
