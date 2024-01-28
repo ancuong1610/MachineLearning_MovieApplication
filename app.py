@@ -4,12 +4,15 @@ from string import Template
 from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
 
-fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'
+# choose the correct version for your computer
+fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'  # Unix machine
+#fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server.bat'  # Window machine
 ttl_file_path = 'TMDB.ttl'
 
 
 def start_fuseki_server():
-    subprocess.Popen([fuseki_path, '--update', '--mem', '/TMDB'])
+    subprocess.Popen([fuseki_path, '--update', '--mem', '/TMDB'])  # Unix machine
+    #subprocess.Popen(fuseki_path + ' --update --mem /TMDB', shell=True)  # Window machine
 
     import time
     time.sleep(5)
