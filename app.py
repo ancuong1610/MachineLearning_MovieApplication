@@ -1,6 +1,21 @@
+import subprocess
 from flask import Flask, render_template, request, send_from_directory
 from string import Template
 from SPARQLWrapper import SPARQLWrapper, JSON
+
+fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'
+ttl_file_path = 'TMDB.ttl'
+
+
+def start_fuseki_server():
+    subprocess.Popen([fuseki_path, '--update', '--mem', '/TMDB'])
+
+    import time
+    time.sleep(10)
+
+    subprocess.Popen([fuseki_path, '--service', '/TMDB', '--update', f'--file={ttl_file_path}'])
+
+
 sparql = SPARQLWrapper("http://localhost:3030/TMDB/sparql")
 sparql.setReturnFormat(JSON)
 actor_query = """
@@ -12,6 +27,8 @@ WHERE{
 :cast/:name ?actor .
 }
 """
+
+
 def query(title):
     query_string = Template(actor_query).substitute(title=title)
     sparql.setQuery(query_string)
@@ -19,7 +36,10 @@ def query(title):
     results = [row['actor']['value'] for row in results_dict['results']['bindings']]
     return results
 
+
 app = Flask(__name__)
+
+
 @app.route("/", methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
@@ -28,9 +48,12 @@ def index():
     else:
         return render_template('index.html', actors=[])
 
+
 @app.route('/static/<path:filename>')
 def serve_static(filename):
     return send_from_directory('static', filename)
 
+
 if __name__ == '__main__':
-   app.run()
+    start_fuseki_server()
+    app.run()
