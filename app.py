@@ -4,6 +4,9 @@ from string import Template
 from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
 
+from handler.KnowledgeGraphHandler import KnowledgeGraphHandler
+from handler.NLPHandler import NLPHandler
+
 # choose the correct version for your computer
 fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'  # Unix machine
 #fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server.bat'  # Window machine
@@ -31,61 +34,47 @@ ttl_file_path = 'TMDB.ttl'
 #         print(f"Failed to upload TMDB.ttl. Status code: {response.status_code}")
 
 
-sparql = SPARQLWrapper("http://localhost:3030/TMDB/query")  # check http://localhost:3030 for SPARQL Endpoint before run
-sparql.setReturnFormat(JSON)
-actor_query = """
-PREFIX : <https://www.themoviedb.org/kaggle-export/>
-SELECT ?actor
-WHERE{
-?m a :Movie ;
-:title "$title" ;
-:cast/:name ?actor .
-}
-"""
-
-
-def query(title):
-    query_string = Template(actor_query).substitute(title=title)
-    sparql.setQuery(query_string)
-    results_dict = sparql.query().convert()
-    results = [row['actor']['value'] for row in results_dict['results']['bindings']]
-    return results
-
-
 app = Flask(__name__)
+knowledge_graph_handler = KnowledgeGraphHandler()
+nlp_handler = NLPHandler()
 
 
 @app.route("/", methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
         title = request.form['title']
-        return render_template('index.html', actors=query(title))
+        return render_template('index.html', actors=knowledge_graph_handler.query_actors_by_title(title))
     else:
         return render_template('index.html', actors=[])
 
-@app.route("/actor", methods=('GET', 'POST'))
+
+@app.route("/actor", methods=('GET', 'POST'))  #not clear what does this page do
 def actor():
     if request.method == 'POST':
         title = request.form['title']
-        return render_template('index2.html', actors=query(actor))
+        return render_template('index2.html', actors=knowledge_graph_handler.query_actors_by_title(title))
     else:
         return render_template('index2.html', actors=[])
+
 
 @app.route("/genre", methods=('GET', 'POST'))
 def genre():
     if request.method == 'POST':
-        title = request.form['title']
-        return render_template('index3.html', actors=query(genre))
+        genre = request.form['genre']
+        return render_template('index3.html', actors=knowledge_graph_handler.query_movie_by_gerne(genre))
     else:
         return render_template('index3.html', actors=[])
+
 
 @app.route("/description", methods=('GET', 'POST'))
 def description():
     if request.method == 'POST':
         title = request.form['title']
-        return render_template('index4.html', descript=query(description))
+        return render_template('index4.html', descript=knowledge_graph_handler.query_movie_by_gerne(genre))
     else:
         return render_template('index4.html', descript=[])
+
+
 @app.route('/static/<path:filename>')
 def serve_static(filename):
     return send_from_directory('static', filename)
