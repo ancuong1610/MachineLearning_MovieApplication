@@ -44,11 +44,6 @@ def index():
     if request.method == 'POST':
         title = request.form['title']
         actors = knowledge_graph_handler.query_actors_by_title(title)
-        if actors:
-            for i in actors:
-                print("Actor:", i)
-        else:
-            print("ERROR")
         return render_template('index.html', actors=actors)
     else:
         return render_template('index.html', actors=[])
