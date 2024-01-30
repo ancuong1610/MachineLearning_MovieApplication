@@ -61,7 +61,7 @@ def actor():
 def genre():
     if request.method == 'POST':
         genre = request.form['genre']
-        return render_template('index3.html', actors=knowledge_graph_handler.query_movie_by_gerne(genre))
+        return render_template('index3.html', actors=knowledge_graph_handler.query_movies_by_genre(genre))
     else:
         return render_template('index3.html', actors=[])
 
