@@ -19,8 +19,8 @@ ttl_file_path = 'TMDB.ttl'
 #
 #     import time
 #     time.sleep(5)
-#
 #     upload_ttl_to_fuseki()
+#
 #
 # def upload_ttl_to_fuseki():
 #     data = open(ttl_file_path).read()
@@ -81,5 +81,5 @@ def serve_static(filename):
 
 
 if __name__ == '__main__':
-    # start_fuseki_server()
+    #start_fuseki_server()
     app.run()
