@@ -12,8 +12,9 @@ class KnowledgeGraphHandler:
         SELECT ?actor
         WHERE {
             ?m a :Movie ;
-            :title "$title" ;
+            :title ?title ;
             :cast/:name ?actor .
+            FILTER(?title = "$title")
         }
         """
         query_string = Template(actor_query).substitute(title=title)
@@ -26,11 +27,12 @@ class KnowledgeGraphHandler:
         film_query = """
         PREFIX : <https://www.themoviedb.org/kaggle-export/>
         SELECT ?movie
-        WHERE{
+        WHERE {
             ?m a :Movie ;
             :genres ?genres ;
-            :title ?movie.
-            ?genres :name "$genre" .
+            :title ?movie .
+            ?genres :name ?genre .
+            FILTER(?genre = "$genre")
         }
         """
         query_string = Template(film_query).substitute(genre=genre)
