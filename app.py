@@ -1,7 +1,5 @@
 import subprocess
 from flask import Flask, render_template, request, send_from_directory
-from string import Template
-from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
 from handler.KnowledgeGraphHandler import KnowledgeGraphHandler
 from handler.NLPHandler import NLPHandler
@@ -10,8 +8,7 @@ from handler.NLPHandler import NLPHandler
 fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'  # Unix machine
 #fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server.bat'  # Window machine
 ttl_file_path = 'TMDB.ttl'
-
-test = ["Bob", "Alice", "Dave"]
+#
 # #NOTE: leave for later developement
 # def start_fuseki_server():
 #     subprocess.Popen([fuseki_path, '--update', '--mem', '/TMDB'])  # Unix machine
@@ -49,11 +46,12 @@ def index():
         return render_template('index.html', actors=[])
 
 
-@app.route("/actor", methods=('GET', 'POST'))  #not clear what does this page do
+@app.route("/actor", methods=('GET', 'POST'))
 def actor():
     if request.method == 'POST':
-        title = request.form['title']
-        return render_template('index2.html', actors=knowledge_graph_handler.query_actors_by_title(title))
+        name = request.form['title']
+        movies = knowledge_graph_handler.query_actors_by_title(name)
+        return render_template('index2.html', actors=movies)
     else:
         return render_template('index2.html', actors=[])
 
@@ -62,7 +60,8 @@ def actor():
 def genre():
     if request.method == 'POST':
         genre = request.form['genre']
-        return render_template('index3.html', actors=knowledge_graph_handler.query_movies_by_genre(genre))
+        genres = knowledge_graph_handler.query_movies_by_genre(genre)
+        return render_template('index3.html', actors=genres)
     else:
         return render_template('index3.html', actors=[])
 
