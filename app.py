@@ -49,8 +49,8 @@ def index():
 @app.route("/actor", methods=('GET', 'POST'))
 def actor():
     if request.method == 'POST':
-        name = request.form['title']
-        movies = knowledge_graph_handler.query_actors_by_title(name)
+        name = request.form['actor']
+        movies = knowledge_graph_handler.query_movies_by_actor(name)
         return render_template('index2.html', actors=movies)
     else:
         return render_template('index2.html', actors=[])
