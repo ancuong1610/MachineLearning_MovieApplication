@@ -41,9 +41,35 @@
 
             padding: 20px;
         }
+
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+          background-color: rgba(241, 241, 241, 0.8); /* Adjust the alpha value for transparency */
+            padding: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 16px;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
     </style>
 </head>
 <body>
+
   <div class="container">
 <div class="content">
 {% block content %} {% endblock %}

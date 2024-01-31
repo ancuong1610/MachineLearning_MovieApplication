@@ -66,7 +66,7 @@ def genre():
         return render_template('index3.html', actors=[])
 
 
-@app.route("/description", methods=('GET', 'POST')) #TODO
+@app.route("/tagline", methods=('GET', 'POST')) #TODO
 def description():
     if request.method == 'POST':
         title = request.form['title']
