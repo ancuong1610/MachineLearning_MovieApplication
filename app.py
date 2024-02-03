@@ -70,11 +70,11 @@ def genre():
 @app.route("/tagline", methods=('GET', 'POST'))
 def description():
     if request.method == 'POST':
-        title = request.form['title']
-        mov_description = nlp_handler.get_movie_description(title)
-        return render_template('index4.html', descript=mov_description)
+        description = request.form['description']
+        mov_description = nlp_handler.get_movie_description(description)
+        return render_template('index4.html', actors=mov_description)
     else:
-        return render_template('index4.html', descript=[])
+        return render_template('index4.html', actors=[])
 
 
 @app.route('/static/<path:filename>')
@@ -84,4 +84,4 @@ def serve_static(filename):
 
 if __name__ == '__main__':
     # start_fuseki_server()
-    app.run()
+    app.run(debug=True)

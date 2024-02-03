@@ -28,7 +28,8 @@ class NLPHandler:
         distances, indices = self.model.kneighbors(title_vector)
         # index of nearest movie
         index = indices[0][0]
-        return self.df.loc[index, 'overview']
+        print([self.df.loc[index, 'overview']])
+        return [self.df.loc[index, 'overview']]
 
 
 #if __name__ == '__main__':

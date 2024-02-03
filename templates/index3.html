@@ -4,12 +4,12 @@
         <a href="http://127.0.0.1:5000/">Title</a>
         <a href="http://127.0.0.1:5000/actor">Actor</a>
         <a href="http://127.0.0.1:5000/genre">Genre</a>
-        <a href="http://127.0.0.1:5000/tagline">Tag Lines</a>
+        <a href="http://127.0.0.1:5000/tagline">Description</a>
     </nav>
 <h1>{% block title %} MovieMagnet {% endblock %}</h1>
 <form method="post">
 <div class="form-group">
-<label>Get Movie to genre:</label>
+<label>Get movies for a genre:</label>
 <input type="text" name="genre" placeholder="Enter genre ..."
 class="form-control" value="{{ request.form['genre'] }}"/>
 </div>

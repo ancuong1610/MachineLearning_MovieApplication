@@ -4,20 +4,20 @@
         <a href="http://127.0.0.1:5000/">Title</a>
         <a href="http://127.0.0.1:5000/actor">Actor</a>
         <a href="http://127.0.0.1:5000/genre">Genre</a>
-        <a href="http://127.0.0.1:5000/tagline">Tag Lines</a>
+        <a href="http://127.0.0.1:5000/tagline">Description</a>
     </nav>
 <h1>{% block title %} MovieMagnet {% endblock %}</h1>
 <form method="post">
 <div class="form-group">
-<label>Get Movie to Description:</label>
-<input type="text" name="description" placeholder="Enter genre ..."
+<label>Get Description for a movie:</label>
+<input type="text" name="description" placeholder="Enter Title ..."
 class="form-control" value="{{ request.form['description'] }}"/>
 </div>
 <div class="form-group">
-<button class="btn btn-primary">Show actors</button>
+<button class="btn btn-primary">Show Description</button>
 </div>
 </form>
-{% descript %}
+{% for actor in actors %}
 <p>{{ actor }}</p>
 {% endfor %}
 {% endblock %}
