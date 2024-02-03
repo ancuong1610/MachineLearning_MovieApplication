@@ -8,7 +8,7 @@ from handler.NLPHandler import NLPHandler
 fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'  # Unix machine
 #fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server.bat'  # Window machine
 ttl_file_path = 'TMDB.ttl'
-nlp_handler = NLPHandler()
+
 #
 # #NOTE: leave for later developement
 # def start_fuseki_server():
