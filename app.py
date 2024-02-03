@@ -8,6 +8,7 @@ from handler.NLPHandler import NLPHandler
 fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server'  # Unix machine
 #fuseki_path = 'apache-jena-fuseki-4.9.0/fuseki-server.bat'  # Window machine
 ttl_file_path = 'TMDB.ttl'
+nlp_handler = NLPHandler()
 #
 # #NOTE: leave for later developement
 # def start_fuseki_server():
@@ -66,11 +67,12 @@ def genre():
         return render_template('index3.html', actors=[])
 
 
-@app.route("/tagline", methods=('GET', 'POST')) #TODO
+@app.route("/tagline", methods=('GET', 'POST'))
 def description():
     if request.method == 'POST':
         title = request.form['title']
-        return render_template('index4.html', descript=knowledge_graph_handler.query_movie_by_gerne(genre))
+        mov_description = nlp_handler.get_movie_description(title)
+        return render_template('index4.html', descript=mov_description)
     else:
         return render_template('index4.html', descript=[])
 
@@ -81,5 +83,5 @@ def serve_static(filename):
 
 
 if __name__ == '__main__':
-    #start_fuseki_server()
+    # start_fuseki_server()
     app.run()
