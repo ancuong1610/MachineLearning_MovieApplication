@@ -17,5 +17,5 @@ After running the app, the website will pop out and can be controll with navigat
 2. Run the App:
 *Note for Window User: choose the right command of code base on the Comment section in app.py(Unix machine can skip this)
 - In PyCharm, right-click on app.py and select "Run 'app'."
-4. Open Your Browser:
+3. Open Your Browser:
 Open your web browser and go to http://127.0.0.1:5000/.
