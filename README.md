@@ -12,7 +12,7 @@ After running the app, the website will pop out and can be controll with navigat
 - Output description of the movie:
 <img width="1427" alt="Screenshot 2024-02-04 at 10 13 49" src="https://github.com/ancuong1610/MachineLearning_MovieApplication/assets/66347972/fd184245-4a69-4f58-91a8-715b76a1b90d">
 
-# Setup
+# Setup:
 1. Download all necessary Packages:
 2. Run the App:
 *Note for Window User: choose the right command of code base on the Comment section in app.py/ Unix machine can skip this
